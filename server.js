@@ -55,7 +55,6 @@ function addEvent(e, events){
     return events;
 }
 
-
 // Add person object with (name and email) to the people array
 function addPerson(name, email) {
     var p = {};
@@ -112,6 +111,7 @@ function determineEvent(events){
 // Create empty attendance list
 var people = [];
 
+// Default event list
 var events = [
     {
         "id": 0,
@@ -158,7 +158,8 @@ var events = [
 ];
 
 
-/* TESTING CODE 
+/* TESTING CODE {
+
 console.log("--- Test add person ---");
 
 // People to add
@@ -246,25 +247,32 @@ app.use(function (req, res, next) {
 
 app.use(express.static(path.resolve(__dirname, 'public')));
 
+// Send list of events to the client 
 app.get('/api/events', (req, res) => {
     res.send(events);
 })
 
+// Send list of people to the client 
 app.get('/api/people', (req, res) =>{
     res.send(people);
 })
 
+// When there is a get request at api/admin/send we select and send out the weeks activity.
 app.get('api/admin/send', (req, res) =>{
     var event = determineEvent(events);
     emailList(people, event);
 })
 
-
-// update api address?
+// Update api address?
 app.post('/api/people', (req, res) => {
     const query = req.body.query;
 
     addPerson(query.name, query.email);
+});
+
+// update api address?
+app.post('/api/events', (req, res) => {
+    const query = req.body.query;
 
     updateInterests(query.interests);
 });
