@@ -1,0 +1,22 @@
+.hero .title {
+  font-size: 3em;
+}
+.hero .subtitle {
+  font-size: 2em;
+}
+article.media img {
+  /* height: 600px; */
+  /* width: 800px; */
+}
+#events {
+  padding: 30px 0;
+}
+
+@media screen and (min-width: 769px), print{
+  .hero.is-medium .hero-body {
+      padding: 3em;
+  }
+}
+.event {
+  transition: all 3s ease;
+}
