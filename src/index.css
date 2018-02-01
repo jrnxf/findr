@@ -4,10 +4,6 @@
 .hero .subtitle {
   font-size: 2em;
 }
-article.media img {
-  /* height: 600px; */
-  /* width: 800px; */
-}
 #events {
   padding: 30px 0;
 }
@@ -19,4 +15,12 @@ article.media img {
 }
 .event {
   transition: all 3s ease;
+}
+.swipe-button {
+  margin: 0 10px;
+  font-size: 2em;
+}
+
+img {
+  border-radius: 5px;
 }
