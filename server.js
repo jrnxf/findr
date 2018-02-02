@@ -3,12 +3,9 @@ var functions = require("./functions");
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-//const sgMail = require('@sendgrid/mail');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-
-//sgMail.setApiKey('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');
 
 // Create empty attendance list
 var people = [];
@@ -60,24 +57,24 @@ var events = [
 ];
 
 
-// TESTING CODE { 
+/* TESTING CODE { 
 
 console.log("--- Test add person ---");
 
 // People to add
 var testp = {
     name: "Brennan",
-    email: "jamessaul7629@gmail.com"
+    email: "findrupdates@gmail.com"
 }
 
 var testp2 = {
     name: "Colby",
-    email: "colby@gmail.com"
+    email: "findrupdates@gmail.com"
 }
 
 var testp3 = {};
 testp3.name = "kelly";
-testp3.email = "sims";
+testp3.email = "findrupdates@gmail.com";
 
 
 people = functions.addPerson(testp.name, testp.email, people);
@@ -98,6 +95,10 @@ people.forEach(item => {
 
 // Test badge increase
 
+//functions.emailList(people, events[2]);
+
+var event = functions.determineEvent(events);
+functions.emailList(people, event);
 
 // Test eamil
 //emailActivity('findrmessages@gmail.com', "Brennan", "a happy hour at BBC!")
@@ -161,22 +162,22 @@ app.get('/api/people', (req, res) =>{
 
 // When there is a get request at api/admin/send we select and send out the weeks activity.
 app.get('api/admin/send', (req, res) =>{
-    var event = determineEvent(events);
-    emailList(people, event);
+    var event = functions.determineEvent(events);
+    functions.emailList(people, event);
 })
 
 // Update api address?
 app.post('/api/people', (req, res) => {
     const query = req.body.query;
 
-    addPerson(query.name, query.email);
+    functions.addPerson(query.name, query.email);
 });
 
 // update api address?
 app.post('/api/events', (req, res) => {
     const query = req.body.query;
 
-    updateInterests(query.interests);
+    functions.updateInterests(query.interests);
 });
 
 // Listen on port 3000
