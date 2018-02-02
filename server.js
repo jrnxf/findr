@@ -1,13 +1,16 @@
+var functions = require("./functions");
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const sgMail = require('@sendgrid/mail');
+//const sgMail = require('@sendgrid/mail');
 
 const PORT = process.env.PORT || 8000;
 const SENDGRIND_API_KEY = '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'
 
 const app = express();
 
+<<<<<<< HEAD
 sgMail.setApiKey(SENDGRIND_API_KEY);
 
 // Emails the activity to the person specified
@@ -108,6 +111,9 @@ function determineEvent(events){
 
     return activity;
 }
+=======
+//sgMail.setApiKey('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');
+>>>>>>> 8099bf69c8386586f691070ec435dcf6f9783b81
 
 // Create empty attendance list
 var people = [];
@@ -209,6 +215,7 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 
 
+// TESTING CODE { 
 
 console.log("--- Test add person ---");
 
@@ -228,13 +235,13 @@ testp3.name = "kelly";
 testp3.email = "sims";
 
 
-people.push(testp);
+people = functions.addPerson(testp.name, testp.email, people);
 console.log(testp.name + " was added to the list.")
 
-people.push(testp2);
+people = functions.addPerson(testp2.name, testp2.email, people);
 console.log(testp2.name + " was added to the list.")
 
-people.push(testp3);
+people = functions.addPerson(testp3.name, testp3.email, people);
 console.log(testp3.name + " was added to the list.")
 
 console.log("Updated list:");
@@ -248,16 +255,16 @@ people.forEach(item => {
 
 
 // Test eamil
-emailActivity('findrmessages@gmail.com', "Brennan", "a happy hour at BBC!")
+//emailActivity('findrmessages@gmail.com', "Brennan", "a happy hour at BBC!")
 
 
 
-emailActivity('findrmessages@gmail.com', "Brennan", events[0]);
+//emailActivity('findrmessages@gmail.com', "Brennan", events[0]);
 
-console.log(determineEvent(events));
+console.log(functions.determineEvent(events));
 
-updateInterests([0]);
-determineEvent(events);
+events = functions.updateInterests([1, 0, 3], events);
+functions.determineEvent(events);
 
 // Test add event
 
@@ -267,16 +274,20 @@ ev = {
 }
 
 console.log(events.length);
-events = addEvent(ev, events);
+events = functions.addEvent(ev, events);
 
 console.log(events.length);
 console.log(events[7].eventName);
 console.log(events[7].id);
 console.log(events[7].badgeCount);
 
+<<<<<<< HEAD
 */
 <<<<<<< HEAD
 =======
+=======
+//*/
+>>>>>>> 8099bf69c8386586f691070ec435dcf6f9783b81
 
 
 // Parsers for POST data
