@@ -7,7 +7,8 @@ class Events extends Component {
 
   state = {
     events: [],
-    counter: 0
+    counter: 0,
+    interests: []
   }
 
   componentDidMount = () => {
@@ -25,6 +26,10 @@ class Events extends Component {
     let event = $('#event');
     event.removeClass();
     if (direction === 'right') {
+      let updatedInterestsArray = this.state.interests.concat(this.state.counter)
+      this.setState(() => ({
+        interests: updatedInterestsArray
+      }))
       event.addClass('animated slideOutRight');
     } else {
       event.addClass('animated slideOutLeft');
@@ -37,8 +42,12 @@ class Events extends Component {
   swipeLeft = () => this.swipe('left');
 
   getNewEvent = () => {
+    console.log(this.state.interests);
     if (this.state.counter + 1 === this.state.events.length){
-      this.props.history.push('/review');
+      this.props.history.push('/summary');
+      axios.post('http://localhost:8000/api/interests', {
+        "interests": this.state.interests
+      });
     }
     setTimeout(() => {
       this.setState((prevState) => ({
@@ -59,6 +68,7 @@ class Events extends Component {
     return (
       <div>
         <div className="container">
+          <button onClick={() => console.log(this.state)}>State</button>
           <div id="events" className="has-text-centered">
             <button className="button swipe-button is-danger" onClick={this.swipeLeft}><span role="img">👈</span></button>
             <button className="button swipe-button is-success" onClick={this.swipeRight}><span role="img">👉</span></button>

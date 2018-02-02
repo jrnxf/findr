@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Events from './Events';
-import Review from './Review';
+import Summary from './Summary';
 import Form from './Form';
 
 export default () => (
@@ -9,7 +9,7 @@ export default () => (
     <Switch>
       <Route exact path='/' component={Form}/>
       <Route exact path='/events' component={Events}/>
-      <Route path='/review' component={Review}/>
+      <Route path='/summary' component={Summary}/>
     </Switch>
   </main>
 );
