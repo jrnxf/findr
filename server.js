@@ -56,7 +56,6 @@ function addEvent(e, events){
     return events;
 }
 
-
 // Add person object with (name and email) to the people array
 function addPerson(name, email) {
     var p = {};
@@ -113,6 +112,7 @@ function determineEvent(events){
 // Create empty attendance list
 var people = [];
 
+// Default event list
 var events = [
     {
         "id": 0,
@@ -209,7 +209,7 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 
 
-/* TESTING CODE 
+
 console.log("--- Test add person ---");
 
 // People to add
@@ -275,3 +275,61 @@ console.log(events[7].id);
 console.log(events[7].badgeCount);
 
 */
+<<<<<<< HEAD
+=======
+
+
+// Parsers for POST data
+app.use(bodyParser.json());
+
+// Add headers
+app.use(function (req, res, next) {
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    // Pass to next layer of middleware
+    next();
+});
+
+app.use(express.static(path.resolve(__dirname, 'public')));
+
+// Send list of events to the client 
+app.get('/api/events', (req, res) => {
+    res.send(events);
+})
+
+// Send list of people to the client 
+app.get('/api/people', (req, res) =>{
+    res.send(people);
+})
+
+// When there is a get request at api/admin/send we select and send out the weeks activity.
+app.get('api/admin/send', (req, res) =>{
+    var event = determineEvent(events);
+    emailList(people, event);
+})
+
+// Update api address?
+app.post('/api/people', (req, res) => {
+    const query = req.body.query;
+
+    addPerson(query.name, query.email);
+});
+
+// update api address?
+app.post('/api/events', (req, res) => {
+    const query = req.body.query;
+
+    updateInterests(query.interests);
+});
+
+// Listen on port 3000
+app.listen(PORT, () => console.log('Example app listening on port 3000!'));
+
+>>>>>>> c7b3c164bbf2dbe79959407cce54f164797ad905
