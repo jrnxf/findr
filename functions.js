@@ -5,24 +5,24 @@
 */
 
 const sgMail = require('@sendgrid/mail');
+const API_KEY = "";
 
-sgMail.setApiKey('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');
+sgMail.setApiKey(API_KEY);
 
 // Emails the activity to the person specified
-exports.emailActivity = function emailActivity(email, name, event) {
+emailActivity = function emailActivity(email, name, event) {
 
     const msg = {
         to: email,
-        from: 'findrmessages@gmail.com',
-        subject: 'Findr activity of the week!',
-        text: `${name}, This week's Findr activity is ${event.eventName}!!`,
-        html:   `<div style="background-color: #1abc9c; color: #fff "><h1>Hey ${name}!!</h1>
-        <div style="text-align: ;"><img style="width: 100%;" src="${event.imageURL}" /> <br />
-        <p style="text-align: ;">This week's Findr activity is: ${event.eventName}! <br />This fin-tastic social event was pick at random with a wopping ${event.badgeCount} interest points!</p>
+        from: '...@gmail.com',
+        subject: '🐬Findr activity of the week!🐬',
+        //text: `${name}, This week's Findr activity is ${event.eventName}!!`,
+        html:   `<div style="background-color: #1abc9c; color: #fff; border-width: 20px; border-style: double ; border-color: #202424 "><h1 style="padding: 20px">Hey ${name}!!</h1>
+        <div style="text-align: center;"><img style="width: 90%;" src="${event.imageURL}" /> <br />
+        <h2 style="text-align: center; padding: 20px"">This week's Findr activity is: ${event.eventName}! This fin-tastic social event was pick at random with a wopping ${event.badgeCount} interest points!</h2>
         </div>
-        <p><br /> Thanks for using Findr! We'll see you next week!</p>
-        <br />
-        - <3 The Findr Team</div>`,
+        <h3 style="padding: 20px; padding-bottom: 10px">Thanks for using Findr! We'll see you next week!</h2>
+        <h3 style="padding: 20px; padding-top: 0">- ❤️ The Findr Team</div></h2`,
     };
 
     sgMail.send(msg);

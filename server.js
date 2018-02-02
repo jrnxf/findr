@@ -3,15 +3,10 @@ var functions = require("./functions");
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-//const sgMail = require('@sendgrid/mail');
 
 const PORT = process.env.PORT || 8000;
-const SENDGRIND_API_KEY = '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'
 
 const app = express();
-
-//sgMail.setApiKey('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');
-
 
 // Create empty attendance list
 var people = [];
@@ -63,6 +58,79 @@ var events = [
 ];
 
 
+/* TESTING CODE { 
+
+console.log("--- Test add person ---");
+
+// People to add
+var testp = {
+    name: "Brennan",
+    email: "findrupdates@gmail.com"
+}
+
+var testp2 = {
+    name: "Colby",
+    email: "findrupdates@gmail.com"
+}
+
+var testp3 = {};
+testp3.name = "kelly";
+testp3.email = "findrupdates@gmail.com";
+
+
+people = functions.addPerson(testp.name, testp.email, people);
+console.log(testp.name + " was added to the list.")
+
+people = functions.addPerson(testp2.name, testp2.email, people);
+console.log(testp2.name + " was added to the list.")
+
+people = functions.addPerson(testp3.name, testp3.email, people);
+console.log(testp3.name + " was added to the list.")
+
+console.log("Updated list:");
+
+people.forEach(item => {
+    console.log(item.name);
+    console.log(item.email);
+})
+
+// Test badge increase
+
+//functions.emailList(people, events[2]);
+
+var event = functions.determineEvent(events);
+functions.emailList(people, event);
+
+// Test eamil
+//emailActivity('findrmessages@gmail.com', "Brennan", "a happy hour at BBC!")
+
+
+
+//emailActivity('findrmessages@gmail.com', "Brennan", events[0]);
+
+console.log(functions.determineEvent(events));
+
+events = functions.updateInterests([1, 0, 3], events);
+functions.determineEvent(events);
+
+// Test add event
+
+ev = {
+    "eventName": "bob",
+    "imageURL": "https://static1.squarespace.com/static/568afdd8c647adc8055af9cc/t/56903dc4bfe873d7393534c8/1452293578231/?format=2500w"
+}
+
+console.log(events.length);
+events = functions.addEvent(ev, events);
+
+console.log(events.length);
+console.log(events[7].eventName);
+console.log(events[7].id);
+console.log(events[7].badgeCount);
+
+//*/
+
+
 // Parsers for POST data
 app.use(bodyParser.json());
 
@@ -92,9 +160,9 @@ app.get('/api/people', (req, res) =>{
 });
 
 app.get('api/admin/send', (req, res) =>{
-    var event = determineEvent(events);
+    var event = functions.determineEvent(events);
     functions.emailList(people, event);
-});
+})
 
 app.post('/api/people', (req, res) => {
     console.log(req.body);
